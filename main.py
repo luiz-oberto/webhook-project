@@ -18,28 +18,28 @@ class Evento(BaseModel):
 @app.post("/webhook")
 def receber_webhook(dados: Evento):
     
-#   match dados.evento:
-#       case "novo_pedido":
-#           mensagem = "Novo pedido recebido!"
-#       
-#       case "pedido_cancelado":
-#           mensagem = "Pedido cancelado!"
-#               
-#       case "pedido_entregue":
-#           mensagem = "Pedido entregue!"
+    match dados.evento:
+        case "novo_pedido":
+            mensagem = "Novo pedido recebido!"
+        
+        case "pedido_cancelado":
+            mensagem = "Pedido cancelado!"
+                
+        case "pedido_entregue":
+            mensagem = "Pedido entregue!"
 
 
-#       case _:
-#           raise HTTPException(
-#                   status_code=400,
-#                   detail="Tipo de evento inválido"
-#           )
+        case _:
+            raise HTTPException(
+                    status_code=400,
+                    detail="Tipo de evento inválido"
+            )
 
 
-#   print(mensagem)
-#   print(f"Evento: { dados.evento}")
-#   print(f"Pedido: {dados.pedido_id}")
-#   print(f"Cliente: {dados.cliente}")
+    print(mensagem)
+    print(f"Evento: { dados.evento}")
+    print(f"Pedido: {dados.pedido_id}")
+    print(f"Cliente: {dados.cliente}")
 
     return {
             "status": "recebido",

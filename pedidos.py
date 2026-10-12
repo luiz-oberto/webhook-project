@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+import httpx
 from pydantic import BaseModel, StringConstraints, PositiveInt
 from typing import Annotated, Literal
 
@@ -17,8 +18,17 @@ class Pedido(BaseModel):
 
 
 @app.post("/pedido")
-def pedidos(pedido: Pedido):
-    print(f"Pedido recebido: {pedido}")
-    
+def receber_pedidos(pedido: Pedido):
+
+    response = httpx.post(
+        "http://localhost:8000/webhook",
+        json={
+            "evento": "novo_pedido",
+            "pedido_id": pedido.id,
+            "cliente": pedido.cliente
+        }
+    )
+
+    print(f"Resposta do webhook: {response.status_code} - {response.text}")
     return "pedido recebido"
 
